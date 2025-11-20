@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
+import { API_ENDPOINTS } from '../config/api';
 import { MessageSquare, Send, Globe, Mic, MicOff, Volume2, Sparkles, Brain, Book, Gamepad, Heart, RefreshCw } from 'lucide-react';
 
 const CATEGORIES = [
@@ -235,7 +236,7 @@ const HelpSupport = ({ isNightMode }) => {
       console.log(`Sending request to Gemini API for category: ${category}`);
       
       // Call to backend API that connects to Gemini
-      const response = await axios.post('http://localhost:5000/api/chat', {
+      const response = await axios.post(API_ENDPOINTS.CHAT, {
         message: text,
         context: contextPrompt,
         category,
