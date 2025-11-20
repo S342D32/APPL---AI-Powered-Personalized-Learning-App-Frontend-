@@ -1,10 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { SignedIn, SignedOut, RedirectToSignIn } from '@clerk/clerk-react';
 
 // Import components
-import Login from "./components/Auth/Login";
-import Register from "./components/Auth/Register";
-
 import Dashboard from "./components/Dashboard";
 import "./App.css";
 
@@ -20,11 +18,27 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-      
-        <Route path="/" element={<Dashboard />} />
+        <Route path="/dashboard" element={
+          <>
+            <SignedIn>
+              <Dashboard />
+            </SignedIn>
+            <SignedOut>
+              <RedirectToSignIn />
+            </SignedOut>
+          </>
+        } />
+        
+        <Route path="/" element={
+          <>
+            <SignedIn>
+              <Dashboard />
+            </SignedIn>
+            <SignedOut>
+              <RedirectToSignIn />
+            </SignedOut>
+          </>
+        } />
         
         {/* Catch-all route for 404s */}
         <Route path="*" element={
